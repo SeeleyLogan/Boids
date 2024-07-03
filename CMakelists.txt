@@ -1,0 +1,22 @@
+cmake_minimum_required(VERSION 3.5.0 FATAL_ERROR)
+project(Boids LANGUAGES C)
+
+file(GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/src/*.c)
+add_executable(Boids ${SRC_FILES})
+
+add_custom_command(TARGET Boids PRE_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${PROJECT_SOURCE_DIR}/src/assets $<TARGET_FILE_DIR:Boids>/assets)
+
+set_target_properties(
+    Boids PROPERTIES
+    VS_DEBUGGER_WORKING_DIRECTORY $<TARGET_FILE_DIR:Boids>)
+
+find_package(OpenMP)
+if(OpenMP_C_FOUND)
+    target_link_libraries(Boids PRIVATE OpenMP::OpenMP_C)
+endif()
+
+target_link_directories(Boids PRIVATE ${PROJECT_SOURCE_DIR}/lib)
+target_include_directories(Boids PRIVATE ${PROJECT_SOURCE_DIR}/include)
+target_link_libraries(Boids PRIVATE glfw3 opengl32)
