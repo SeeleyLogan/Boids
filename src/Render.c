@@ -5,7 +5,7 @@ void renderSetup(App* app)
     glfwSetKeyCallback(app->window, quit);
     glfwSwapInterval(0);
 
-    glCheck( glClearColorI(0, 0, 0, 0) );
+    glCheck( glClearColorI(0, 0, 0, 255) );
     glCheck( glViewport(0, 0, app->vidmode->width, app->vidmode->height) );
 
     glCheck( glGenVertexArrays(1, &VAO) ); 
@@ -16,8 +16,6 @@ void renderSetup(App* app)
 
 void render(App* app)
 {
-    SetWindowPos(app->hwnd, HWND_BOTTOM, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE);
-
     bindSSBO_a(&app->SSBO_arrays[0]);
 
     glCheck( glUseProgram(app->shaders[0].ID) );
