@@ -6,8 +6,6 @@
 #include <glad/glad.h>
 #endif
 #include <GLFW/glfw3.h>
-#define GLFW_EXPOSE_NATIVE_WIN32
-#include <GLFW/glfw3native.h>
 
 #include <stb/stb_ds.h>
 
@@ -22,7 +20,6 @@
 typedef struct App
 {
     GLFWwindow* window;
-    HWND hwnd;
     const GLFWvidmode* vidmode;
     Shader* shaders;
     SSBO_a* SSBO_arrays;

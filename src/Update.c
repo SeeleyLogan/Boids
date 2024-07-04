@@ -19,10 +19,6 @@ void update(App* app)
     float* verts = (float*) app->mappedBuffers[0];
     int16_t* rots = (int16_t*) app->mappedBuffers[1];
 
-    int16_t* buffer_rots = (int16_t*) malloc(app->SSBO_arrays[0].vert_count * sizeof(int16_t));
-    mallocCheck(buffer_rots);
-
-
     //int32_t i;
     //#pragma omp parallel for
     for (uint32_t i = 0; i < app->SSBO_arrays[0].vert_count; i++)
@@ -32,23 +28,22 @@ void update(App* app)
             verts[i*2+1]
         };
 
-        verts[i*2] = i_pos[0] + (float) (cos(WEIRD_TO_RAD(rots[i])) * BOID_SPEED * deltaTime);
-        verts[i*2+1] = i_pos[1] + (float) (sin(WEIRD_TO_RAD(rots[i])) * BOID_SPEED * deltaTime);
+        vec2 buffer_vector = { 0 };
+        if (glm_vec2_distance2(i_pos, buffer_vector) > 10000) // Boid outside radius of 100
+        {
+            verts[i*2] = 0.0f;
+            verts[i*2+1] = 0.0f;
+        } else {
+            verts[i*2] = i_pos[0] + (float) (cos(WEIRD_TO_RAD(rots[i])) * BOID_SPEED * deltaTime);
+            verts[i*2+1] = i_pos[1] + (float) (sin(WEIRD_TO_RAD(rots[i])) * BOID_SPEED * deltaTime);
+        }
 
-        if (verts[i*2] > 100.0f)
-            verts[i*2] = -100.0f;
-        else if (verts[i*2] < -100.0f)
-            verts[i*2] = 100.0f;
-
-        if (verts[i*2+1] > 100.0f)
-            verts[i*2+1] = -100.0f;
-        else if (verts[i*2+1] < -100.0f)
-            verts[i*2+1] = 100.0f;
+        i_pos[0] = verts[i*2];
+        i_pos[1] = verts[i*2+1];
 
         float boids_in_flock = 0.0f;
         float boids_too_close = 0.0f;
 
-        vec2 buffer_vector = { 0 };
         vec2 alignment_vector = { 0 };
         vec2 cohesion_vector = { 0 };
         vec2 separation_vector = { 0 };
@@ -100,7 +95,7 @@ void update(App* app)
 
             separation_diff = (int16_t) glm_clamp((float) -separation_diff, -SEPARTATION_WEIGHT, SEPARTATION_WEIGHT);
 
-            buffer_rots[i] = rots[i] + separation_diff;
+            rots[i] += separation_diff;
         }
         else if (boids_in_flock > 0)
         {
@@ -126,14 +121,9 @@ void update(App* app)
 
             int16_t new_angle = (rots[i] + avg_diff) % WEIRD_ANGLE_UNIT;
 
-            buffer_rots[i] = new_angle;
-        } else {
-            buffer_rots[i] = rots[i];
-            continue;
+            rots[i] = new_angle;
         }
     };
-
-    memcpy(rots, buffer_rots, app->SSBO_arrays[0].vert_count * sizeof(int16_t));
 
     glCheck( glBindBuffer(GL_SHADER_STORAGE_BUFFER, app->SSBO_arrays[0].SSBO_array[0]) );
     glCheck( glFlushMappedBufferRange(GL_SHADER_STORAGE_BUFFER, 0, app->SSBO_arrays[0].vert_count*sizeof(float)) );

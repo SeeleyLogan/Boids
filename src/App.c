@@ -14,8 +14,6 @@ App initApp()
     setWindowHints();
     initWindow(&app.window, &app.vidmode);
 
-    app.hwnd = glfwGetWin32Window(app.window);
-
     if (app.window == NULL)
     {
         println("error: Failed to create GLFW window");
@@ -42,8 +40,7 @@ void setWindowHints()
     glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
 
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-    glfwWindowHint(GLFW_DECORATED, GL_TRUE);
-    glfwWindowHint(GLFW_SCALE_TO_MONITOR , GL_TRUE);
+    glfwWindowHint(GLFW_DECORATED, GL_FALSE);
 }
 
 void initWindow(GLFWwindow** window, const GLFWvidmode** vidmode)
