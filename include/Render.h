@@ -11,7 +11,6 @@
 #include <stb/stb_ds.h>
 
 #include <App.h>
-#include <Color.h>
 #include <Callbacks.h>
 #include <Shader.h>
 #include <SSBO.h>
