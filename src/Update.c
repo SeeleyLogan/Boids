@@ -18,6 +18,8 @@ void update(App* app)
 
     float* verts = (float*) app->mappedBuffers[0];
     int16_t* rots = (int16_t*) app->mappedBuffers[1];
+    int16_t* buffer_rots = (int16_t*) malloc(app->SSBO_arrays[0].vert_count*sizeof(int16_t));
+    mallocCheck(buffer_rots);
 
     //int32_t i;
     //#pragma omp parallel for
@@ -40,15 +42,16 @@ void update(App* app)
         int16_t alignment_angle = 0;
         vec2 cohesion_vector = { 0 };
         vec2 separation_vector = { 0 };
-        vec2 buffer_vector = { 0 };
-        uint8_t senario = 0;
+        vec2 out_of_bounds_vector = { 0 };
+        boolean is_out_of_bounds = 0;
 
-        if (glm_vec3_distance2(i_pos, buffer_vector) > 10000000)
+        if (glm_vec2_norm2(i_pos) > 10000)
         {
-            senario = 3;
+            is_out_of_bounds = 1;
+            glm_vec2_sub(out_of_bounds_vector, i_pos, out_of_bounds_vector);
         }
 
-        for (uint32_t j = 0; j < app->SSBO_arrays[0].vert_count && !senario; j++)
+        for (uint32_t j = 0; j < app->SSBO_arrays[0].vert_count; j++)
         {
             if (i == j)
                 continue;
@@ -61,7 +64,6 @@ void update(App* app)
             float j_dist = glm_vec2_distance2(i_pos, j_pos);
             if (j_dist <= FLOCK_SIZE)
             {
-                senario = 1;
                 boids_in_flock++;
 
                 // Alignment
@@ -69,27 +71,56 @@ void update(App* app)
 
                 // Cohesion
                 glm_vec2_sub(j_pos, i_pos, cohesion_vector);
+
+                // Seperation
+                if (j_dist <= BOID_SIZE*BOID_SIZE*2)
+                {
+                    boids_too_close++;
+                    glm_vec2_sub(i_pos, j_pos, separation_vector);
+                }
             }
         }
 
-        switch (senario)
+        int16_t alignment_diff = 0;
+        int16_t cohesion_diff = 0;
+        int16_t separation_diff = 0;
+        int16_t out_of_bounds_diff = 0;
+
+        if (boids_in_flock)
         {
-        case 1:
             // Alignment
             alignment_angle /= (int16_t) boids_in_flock;
-            int16_t alignment_diff = (int16_t) glm_clamp((float) alignment_angle, -ALIGNMENT_WEIGHT, ALIGNMENT_WEIGHT);
+            alignment_diff = (int16_t) glm_clamp((float) alignment_angle, -ALIGNMENT_WEIGHT, ALIGNMENT_WEIGHT);
 
+            // Cohesion
             glm_vec2_divs(cohesion_vector, (float) boids_in_flock, cohesion_vector);
             glm_vec2_normalize(cohesion_vector);
             int16_t cohesion_angle = RAD_TO_WEIRD(atan2(cohesion_vector[1], cohesion_vector[0]));
-            int16_t cohesion_diff = (int16_t) glm_clamp((float) angleDiff(rots[i], cohesion_angle), -COHESION_WEIGHT, COHESION_WEIGHT);
-
-            int16_t avg_diff = (alignment_diff+cohesion_diff)/2;
-            int16_t new_angle = (rots[i] + avg_diff) % WEIRD_ANGLE_UNIT;
-
-            rots[i] = new_angle;
+            cohesion_diff = (int16_t) glm_clamp((float) angleDiff(rots[i], cohesion_angle), -COHESION_WEIGHT, COHESION_WEIGHT);
         }
+
+        // Separation
+        if (boids_too_close > 0)
+        {
+            glm_vec2_divs(separation_vector, (float) boids_too_close, separation_vector);
+            glm_vec2_normalize(separation_vector);
+            int16_t separation_angle = RAD_TO_WEIRD(atan2(separation_vector[1], separation_vector[0]));
+            separation_diff = (int16_t) glm_clamp((float) angleDiff(rots[i], separation_angle), -SEPARTATION_WEIGHT, SEPARTATION_WEIGHT);
+        }
+
+        if (is_out_of_bounds)
+        {
+            int16_t out_of_bounds_angle = RAD_TO_WEIRD(atan2(out_of_bounds_vector[1], out_of_bounds_vector[0]));
+            cohesion_diff = (int16_t) glm_clamp((float) angleDiff(rots[i], out_of_bounds_angle), -OUT_OF_BOUNDS_WEIGHT, OUT_OF_BOUNDS_WEIGHT);
+        }
+
+        int16_t avg_diff = (alignment_diff+cohesion_diff+separation_diff+out_of_bounds_diff)/4;
+        int16_t new_angle = (rots[i] + avg_diff) % WEIRD_ANGLE_UNIT;
+
+        buffer_rots[i] = new_angle;
     };
+
+    memcpy(rots, buffer_rots, app->SSBO_arrays[0].vert_count*sizeof(int16_t));
 
     glCheck( glBindBuffer(GL_SHADER_STORAGE_BUFFER, app->SSBO_arrays[0].SSBO_array[0]) );
     glCheck( glFlushMappedBufferRange(GL_SHADER_STORAGE_BUFFER, 0, app->SSBO_arrays[0].vert_count*sizeof(float)) );

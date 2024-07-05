@@ -5,10 +5,11 @@
 
 #define BOIDS 300
 #define BOID_SIZE 1
-#define BOID_SPEED 25
+#define BOID_SPEED 20
 #define FLOCK_SIZE 60  // Flock size squared
-#define ALIGNMENT_WEIGHT 60
-#define COHESION_WEIGHT 40
-#define SEPARTATION_WEIGHT 60
+#define ALIGNMENT_WEIGHT 15
+#define COHESION_WEIGHT 10
+#define SEPARTATION_WEIGHT 20
+#define OUT_OF_BOUNDS_WEIGHT 60
 
 #endif
