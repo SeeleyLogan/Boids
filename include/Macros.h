@@ -8,7 +8,7 @@
 
 #define println(...) printf(__VA_ARGS__);printf("\n");
 #define len(x) (sizeof(x)/sizeof(x[0]))
-#define angleDiff(a1, a2) ((a2 - a1 + WEIRD_ANGLE_UNIT/2) % WEIRD_ANGLE_UNIT - WEIRD_ANGLE_UNIT/2)
+#define angleDiff(a1, a2) ((int16_t) remainder((double) (a2 - a1), WEIRD_ANGLE_UNIT))
 #define RAD_TO_WEIRD(rad) (int16_t) (rad * ((WEIRD_ANGLE_UNIT/2)/M_PI))
 #define WEIRD_TO_RAD(weird) (double) weird * (M_PI/(WEIRD_ANGLE_UNIT/2))
 
