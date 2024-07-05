@@ -4,17 +4,14 @@ App initApp()
 {
     srand((uint32_t) time(NULL));
     
-    App app = {
-        NULL,
-        NULL
-    };
+    App app = { NULL };
 
     glfwInit();
 
     setWindowHints();
     initWindow(&app.window, &app.vidmode);
 
-    if (app.window == NULL)
+    if (!app.window)
     {
         println("error: Failed to create GLFW window");
         exit(2);
