@@ -90,13 +90,13 @@ void update(App* app)
         {
             // Alignment
             alignment_angle /= (int16_t) boids_in_flock;
-            alignment_diff = (int16_t) glm_clamp((float) alignment_angle, -ALIGNMENT_WEIGHT, ALIGNMENT_WEIGHT);
+            alignment_diff = (int16_t) glm_clamp((float) alignment_angle, -ALIGNMENT_WEIGHT*(float) deltaTime, ALIGNMENT_WEIGHT*(float) deltaTime);
 
             // Cohesion
             glm_vec2_divs(cohesion_vector, (float) boids_in_flock, cohesion_vector);
             glm_vec2_normalize(cohesion_vector);
             int16_t cohesion_angle = RAD_TO_WEIRD(atan2(cohesion_vector[1], cohesion_vector[0]));
-            cohesion_diff = (int16_t) glm_clamp((float) angleDiff(rots[i], cohesion_angle), -COHESION_WEIGHT, COHESION_WEIGHT);
+            cohesion_diff = (int16_t) glm_clamp((float) angleDiff(rots[i], cohesion_angle), -COHESION_WEIGHT*(float) deltaTime, COHESION_WEIGHT*(float) deltaTime);
         }
 
         // Separation
@@ -105,13 +105,13 @@ void update(App* app)
             glm_vec2_divs(separation_vector, (float) boids_too_close, separation_vector);
             glm_vec2_normalize(separation_vector);
             int16_t separation_angle = RAD_TO_WEIRD(atan2(separation_vector[1], separation_vector[0]));
-            separation_diff = (int16_t) glm_clamp((float) angleDiff(rots[i], separation_angle), -SEPARTATION_WEIGHT, SEPARTATION_WEIGHT);
+            separation_diff = (int16_t) glm_clamp((float) angleDiff(rots[i], separation_angle), -SEPARTATION_WEIGHT*(float) deltaTime, SEPARTATION_WEIGHT*(float) deltaTime);
         }
 
         if (is_out_of_bounds)
         {
             int16_t out_of_bounds_angle = RAD_TO_WEIRD(atan2(out_of_bounds_vector[1], out_of_bounds_vector[0]));
-            cohesion_diff = (int16_t) glm_clamp((float) angleDiff(rots[i], out_of_bounds_angle), -OUT_OF_BOUNDS_WEIGHT, OUT_OF_BOUNDS_WEIGHT);
+            cohesion_diff = (int16_t) glm_clamp((float) angleDiff(rots[i], out_of_bounds_angle), -OUT_OF_BOUNDS_WEIGHT*(float) deltaTime, OUT_OF_BOUNDS_WEIGHT*(float) deltaTime);
         }
 
         int16_t avg_diff = (alignment_diff+cohesion_diff+separation_diff+out_of_bounds_diff)/4;
