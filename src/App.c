@@ -17,6 +17,12 @@ App initApp()
         exit(2);
     }
 
+    app.wnd_hwnd =  glfwGetWin32Window(app.window);
+    SetWindowLongPtr(app.wnd_hwnd, GWL_EXSTYLE, WS_EX_TOOLWINDOW);
+
+    glfwMaximizeWindow(app.window);
+    glfwShowWindow(app.window);
+
     glfwMakeContextCurrent(app.window);
     if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
     {
@@ -36,6 +42,7 @@ void setWindowHints()
     glfwWindowHint(GLFW_DOUBLEBUFFER, GLFW_TRUE);
     glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
 
+    glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
     glfwWindowHint(GLFW_DECORATED, GL_FALSE);
 }
@@ -58,10 +65,17 @@ void run(App* app)
     glCheck( glPolygonMode(GL_FRONT_AND_BACK, GL_LINE) );
     #endif
 
+    // Set window style to layered and transparent
+    LONG_PTR style = GetWindowLongPtr(app->wnd_hwnd, GWL_EXSTYLE);
+    style |= WS_EX_LAYERED | WS_EX_TRANSPARENT;
+    SetWindowLongPtr(app->wnd_hwnd, GWL_EXSTYLE, style);
+
     while (!glfwWindowShouldClose(app->window))
     {
         update(app);
         render(app);
+
+        SetWindowPos(app->wnd_hwnd, HWND_BOTTOM, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
     }
 
     glfwDestroyWindow(app->window);
