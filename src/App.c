@@ -18,8 +18,6 @@ App initApp()
         exit(2);
     }
 
-    app.wnd_hwnd =  glfwGetWin32Window(app.window);
-
     glfwMakeContextCurrent(app.window);
     if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
     {
@@ -61,19 +59,11 @@ void run(App* app)
     glCheck( glPolygonMode(GL_FRONT_AND_BACK, GL_LINE) );
     #endif
 
-    // Pass input through transparent window
-    SetWindowLongPtr(app->wnd_hwnd, GWL_EXSTYLE, WS_EX_TOOLWINDOW);
-    LONG_PTR style = GetWindowLongPtr(app->wnd_hwnd, GWL_EXSTYLE);
-    style |= WS_EX_LAYERED | WS_EX_TRANSPARENT;
-    SetWindowLongPtr(app->wnd_hwnd, GWL_EXSTYLE, style);
-
     while (!glfwWindowShouldClose(app->window))
     {
         update(app);
         render(app);
 
-        SetWindowPos(app->wnd_hwnd, HWND_BOTTOM, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
-        
         Sleep(1);
     }
 
