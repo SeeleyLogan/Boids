@@ -19,6 +19,7 @@ App initApp()
     }
 
     // Pass input through transparent window
+    app.wnd_hwnd =  glfwGetWin32Window(app.window);
     SetWindowLongPtr(app.wnd_hwnd, GWL_EXSTYLE, WS_EX_TOOLWINDOW);
     LONG_PTR style = GetWindowLongPtr(app.wnd_hwnd, GWL_EXSTYLE);
     style |= WS_EX_LAYERED | WS_EX_TRANSPARENT;
