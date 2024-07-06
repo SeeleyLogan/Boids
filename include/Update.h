@@ -6,6 +6,7 @@
 #include <pcg/pcg_basic.h>
 
 #include <App.h>
+#include <Utils.h>
 
 double lastUpdate;
 

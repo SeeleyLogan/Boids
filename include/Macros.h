@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include <CGLM/cglm.h>
+
 #include <Globals.h>
 
 #define println(...) printf(__VA_ARGS__);printf("\n");
@@ -12,6 +14,8 @@
 #define glClearColorI(r, g, b, a) glClearColor(r/255.0f, g/255.0f, b/255.0f, a/255.0f)
 
 #define angleDiff(a1, a2) ((int16_t) remainder((double) (a2 - a1), WEIRD_ANGLE_UNIT))
+#define weightedDiff(angle_diff, weight, dt) (int16_t) glm_clamp((float) angle_diff, -weight*(float) dt, weight*(float) dt);
+
 #define RAD_TO_WEIRD(rad) (int16_t) (rad * ((WEIRD_ANGLE_UNIT/2)/M_PI))
 #define WEIRD_TO_RAD(weird) (double) weird * (M_PI/(WEIRD_ANGLE_UNIT/2))
 
