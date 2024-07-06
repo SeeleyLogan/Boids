@@ -24,13 +24,19 @@ a:active {
 
 h1 {
     font-size: 40px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+h2 {
+    font-size: 25px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 #main {
     padding: 1%;
     margin-left: auto;
     margin-right: auto;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .italics {
@@ -52,7 +58,6 @@ h1 {
 
 span.content {
     color: rgb(255, 255, 255);
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 hr.separator {
@@ -70,7 +75,9 @@ a.content:visited {
 }
 
 .content-links {
-    padding-top: 10px;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .paragraph {
@@ -78,4 +85,17 @@ a.content:visited {
     margin: auto;
     max-width: 600px;
     text-align: left;
+}
+
+video {
+    border-radius: 10px;
+    padding: 5px;
+    display: block;
+    margin: 0 auto;
+}
+
+.media-footer {
+    padding: 5px;
+    display: table;
+    margin: 0 auto;
 }

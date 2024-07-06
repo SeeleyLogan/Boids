@@ -45,7 +45,7 @@ void update(App* app)
         vec2 out_of_bounds_vector = { 0 };
         boolean is_out_of_bounds = 0;
 
-        if (glm_vec2_norm2(i_pos) > 10000)
+        if (glm_vec2_norm2(i_pos) > 8000)
         {
             is_out_of_bounds = 1;
             glm_vec2_sub(out_of_bounds_vector, i_pos, out_of_bounds_vector);
@@ -142,8 +142,8 @@ void createSSBOs(App* app)
         float y = ((float) (pcg32_random() % 20001) - 10000.0f) / 100.0f;
         int16_t rot = (int16_t) (pcg32_random() % 32767);
 
-        vcies[i*2] = x;
-        vcies[i*2+1] = y;
+        vcies[i*2] = 0.0f;
+        vcies[i*2+1] = 0.0f;
         rots[i] = rot;
     }
 

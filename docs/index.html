@@ -3,6 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boids Made Easy</title>
+    <link rel="icon" type="image/x-icon" href="./images/ico.png">
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
@@ -24,7 +25,7 @@
                 <div class="content-links">
                     <a href="#overview" class="content"><p class="bold">1.0 Overview</p></a>
                     <a href="#how-i-did-it" class="content"><p class="bold">2.0 How I Did It</p></a>
-                    <a href="#enviornment-setup" class="content"><p class="bold">3.0 Enviornment Setup</p></a>
+                    <a href="#getting-started" class="content"><p class="bold">3.0 Getting Started</p></a>
                 </div>
             </span>
         </div>
@@ -49,7 +50,20 @@
                 <hr class="separator" style="background-color: rgb(68, 69, 86)">
                 <p>A while back, I had programmed a Boids simulation for my robotics class' end-of-year project. I did it using Processing 3.5.4. Though I was proud of it, there were a few tiny bugs that bothered me. At the time, I didn't know how to fix them.</p>
                 <p>Then recently, I decided to reprogram my Boids simulation with the intent on fixing all those pesky bugs. However, this time, I wanted to challenge myself. That's why I decided to program everything with OpenGL, in C. I chose C over C++ because I find the expirience more enjoyable. You can view my project on this page's <a href="https://github.com/SeeleyLogan/Boids", target="_blank">GitHub Repository.</a></p>
-                <p>This is my first proper OpenGL and C program, so don't expect anything too fancy.</p>
+                <p>This is my first proper <a href="https://www.opengl.org" target="_blank">OpenGL</a> and C program, so don't expect anything too fancy.</p>
+
+                <video width="500" height="500" controls>
+                    <source src="./videos/boids.mp4" type="video/mp4">
+                    Your browser does not support this video format (mp4)
+                </video>
+                <span class="media-footer"><b>Video 1:</b><i> Boids example</i></span>
+
+                <p>For OpenGL implementation, I used the <a href="https://github.com/Dav1dde/glad" target="_blank">Glad</a> and <a href="https://www.glfw.org" target="_blank">GLFW</a> libraries. For all my vector math I used <a href="https://github.com/recp/cglm" target="_blank">CGLM</a>, a really simple to use and optimized library.</p>
+            </span>
+            <br>
+            <span class="getting-started">
+                <h2>Getting Started</h2>
+                <hr class="separator" style="background-color: rgb(68, 69, 86)">
             </span>
         </div>
     </div>

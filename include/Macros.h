@@ -9,7 +9,7 @@
 #define println(...) printf(__VA_ARGS__);printf("\n");
 #define len(x) (sizeof(x)/sizeof(x[0]))
 
-#define glClearColorI(r, g, b, a) glClearColor(r/255, g/255, b/255, a/255)
+#define glClearColorI(r, g, b, a) glClearColor(r/255.0f, g/255.0f, b/255.0f, a/255.0f)
 
 #define angleDiff(a1, a2) ((int16_t) remainder((double) (a2 - a1), WEIRD_ANGLE_UNIT))
 #define RAD_TO_WEIRD(rad) (int16_t) (rad * ((WEIRD_ANGLE_UNIT/2)/M_PI))
