@@ -2,6 +2,7 @@
 
 App initApp()
 {
+    timeBeginPeriod(1);
     srand((uint32_t) time(NULL));
     
     App app = { NULL };
@@ -73,7 +74,11 @@ void run(App* app)
         update(app);
         render(app);
 
+<<<<<<< Updated upstream
         SetWindowPos(app->wnd_hwnd, HWND_BOTTOM, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
+=======
+        Sleep(1);
+>>>>>>> Stashed changes
     }
 
     glfwDestroyWindow(app->window);
