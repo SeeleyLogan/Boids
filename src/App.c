@@ -2,6 +2,7 @@
 
 App initApp()
 {
+    timeBeginPeriod(1);
     srand((uint32_t) time(NULL));
     
     App app = { NULL };
@@ -62,6 +63,8 @@ void run(App* app)
     {
         update(app);
         render(app);
+
+        Sleep(1);
     }
 
     glfwDestroyWindow(app->window);
