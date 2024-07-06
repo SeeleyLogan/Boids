@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.5.0 FATAL_ERROR)
 project(Boids LANGUAGES C)
 
 file(GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/src/*.c)
-add_executable(Boids ${SRC_FILES})
+add_executable(Boids WIN32 ${SRC_FILES})
 
 add_custom_command(TARGET Boids PRE_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
