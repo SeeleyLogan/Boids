@@ -21,7 +21,6 @@ App initApp()
     SetWindowLongPtr(app.wnd_hwnd, GWL_EXSTYLE, WS_EX_TOOLWINDOW);
 
     glfwMaximizeWindow(app.window);
-    glfwShowWindow(app.window);
 
     glfwMakeContextCurrent(app.window);
     if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
@@ -42,7 +41,6 @@ void setWindowHints()
     glfwWindowHint(GLFW_DOUBLEBUFFER, GLFW_TRUE);
     glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
 
-    glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
     glfwWindowHint(GLFW_DECORATED, GL_FALSE);
 }
