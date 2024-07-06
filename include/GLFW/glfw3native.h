@@ -98,7 +98,7 @@ extern "C" {
    * example to allow applications to correctly declare a GL_KHR_debug callback)
    * but windows.h assumes no one will define APIENTRY before it does
    */
-  #if defined(GLFW_APIENTRY_DEFINED)
+  #if defined(GLFW_APIENTRY_DEFINED) || defined(APIENTRY)
    #undef APIENTRY
    #undef GLFW_APIENTRY_DEFINED
   #endif
