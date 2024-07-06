@@ -18,6 +18,12 @@ App initApp()
         exit(2);
     }
 
+    // Pass input through transparent window
+    SetWindowLongPtr(app.wnd_hwnd, GWL_EXSTYLE, WS_EX_TOOLWINDOW);
+    LONG_PTR style = GetWindowLongPtr(app.wnd_hwnd, GWL_EXSTYLE);
+    style |= WS_EX_LAYERED | WS_EX_TRANSPARENT;
+    SetWindowLongPtr(app.wnd_hwnd, GWL_EXSTYLE, style);
+
     glfwMakeContextCurrent(app.window);
     if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
     {
@@ -63,6 +69,8 @@ void run(App* app)
     {
         update(app);
         render(app);
+
+        SetWindowPos(app->wnd_hwnd, HWND_BOTTOM, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
 
         Sleep(1);
     }
