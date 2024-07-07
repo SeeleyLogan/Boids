@@ -15,6 +15,7 @@
 #include <stdint.h>
 #include <time.h>
 
+#include <Globals.h>
 #include <Shader.h>
 #include <SSBO.h>
 #include <Macros.h>

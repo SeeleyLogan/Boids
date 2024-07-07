@@ -5,7 +5,12 @@ void renderSetup(App* app)
     glfwSetKeyCallback(app->window, quit);
     glfwSwapInterval(0);
 
+    #ifdef BOIDS_BACKGROUND
     glCheck( glClearColor(0.0f, 0.0f, 0.0f, 0.0f) );
+    #else
+    glCheck( glClearColorI(135.0f, 206.0f, 235.0f, 255.0f) );
+    #endif
+
     glCheck( glViewport(0, 0, app->vidmode->width, app->vidmode->height) );
 
     glCheck( glGenVertexArrays(1, &VAO) ); 
