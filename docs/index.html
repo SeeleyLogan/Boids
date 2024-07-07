@@ -4,7 +4,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boids Made Easy</title>
     <link rel="icon" type="image/x-icon" href="./images/ico.png">
-    <link rel="stylesheet" href="./style.css">
+
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/code-style.css">
+
+    <script src="./js/highlight.min.js"></script>
+    <script src="./js/c.min.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        hljs.highlightAll();
+    });
+    </script>
 </head>
 <body>
     <div id="main">
@@ -16,6 +26,7 @@
                 </a>
                 <p>Version 1.0.0, 2024-07-03</p>
                 <p>Copyright 2024 Logan Seeley. All rights reserved.</p>
+            </span>
         </span>
         <br>
         <div class="contents" id="content-container">
@@ -34,20 +45,21 @@
             <span id="overview">
                 <h2>1.0 Overview</h2>
                 <hr class="separator" style="background-color: rgb(68, 69, 86)">
+                
                 <p>Programming can be difficult sometimes, and there isn't always an online tutorial to help. That's why I've decided to start creating pages explaining my most recent projects, and how to go about making your own version as well. This page will try to provide insight on how to program <a href="https://en.wikipedia.org/wiki/Boids" target="_blank">Boids.</a></p>
                 <p>Boids is an artificial life simulation. When done right, artificial birds should fly around in a mesmerizing dance. The simulation is very simple. It only containing 3 rules: alignment, cohesion and separation.</p>
-                <p>Every concept in this page can be implemented however you want, that's why all code-snippets will be in C-like pseudocode. It will be your job to interpret my code and implement it yourself. No copy pasting! I will try my best to make it seem as easy as possible, but you're always allowed to optimize and improve.</p>
+                <p>Every concept in this page can be implemented fairly easily in many different ways, that's why all code-snippets will be in C-like pseudocode. It will be your job to interpret my code and implement it yourself. No copy pasting! I will try my best to make it seem as easy as possible, but you're always allowed to optimize and improve.</p>
                 <p>Prerequisite knowledge includes:</p>
-                <li>Graphics Programming - You will need to know how to render basic shapes. So having experience with programs like: Processing, Unity, Pygame, etc. is useful for making Boids. Or more low level methods like OpenGL and DirectX.</li>
+                <li>Graphics Programming - You will need to know how to render basic shapes. So having experience with programs like: Processing, Unity, Pygame, or more low level methods like OpenGL or DirectX is useful for making Boids.</li>
                 <br>
                 <li>Vectors - If you've ever programmed a video-game before, chances are you've dealt with vectors. Though the vector math we'll be doing isn't too complicated, you should have a basic concept of vectors before reading.</li>
-                <br>
-                <li>Programming - duhh!</li>
+                <p>The beginning chapters won't focus on optimizations. All that will be talked about later in the more advanced chapters. The focus at the beginning will be to simply get a Boids simulation running. Then after we've established something simple we can begin to dive into more optimized methods.</p>
             </span>
             <br>
             <span id="how-i-did-it">
                 <h2>2.0 How I Did It</h2>
                 <hr class="separator" style="background-color: rgb(68, 69, 86)">
+
                 <p>For my end-of-year project in robotics class, I had programmed a Boids simulation. I did it using Processing 3.5.4. Though I was proud of it, there were a few tiny bugs that bothered me. At the time, I didn't know how to fix them.</p>
                 <p>Recently, I decided to reprogram my Boids simulation with the intent to fix all those pesky bugs. However, this time, I wanted to challenge myself. That's why I decided to program everything with OpenGL, in C. I chose C over C++ because I find the experience more enjoyable. You can view my project on this page's <a href="https://github.com/SeeleyLogan/Boids", target="_blank">GitHub Repository.</a></p>
                 <p>This is my first proper <a href="https://www.opengl.org" target="_blank">OpenGL</a> and C program, so don't expect anything too fancy.</p>
@@ -64,6 +76,16 @@
             <span class="getting-started">
                 <h2>Getting Started</h2>
                 <hr class="separator" style="background-color: rgb(68, 69, 86)">
+
+                <p>By now you should have chosen what enviornment you'll be using. Hopefully it already comes with a vector library. But if it doesn't then you should install one before continuing.</p>
+                <p>We first need to define what properties a Boid will have. So let's make a structure! Each Boid needs to have at least two things: a position and rotation. The position should be a 2-dimensional vector, and the rotation should be a float.</p>
+                <pre><code class="language-c">
+struct Boid
+{
+    vec2 position;
+    float rotation;
+}
+                </code></pre>
             </span>
         </div>
     </div>
