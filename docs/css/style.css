@@ -32,10 +32,14 @@ h2 {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+h3 {
+    font-size: 17px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: rgb(70, 70, 70);
+}
+
 #main {
     padding: 1%;
-    margin-left: auto;
-    margin-right: auto;
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -56,8 +60,15 @@ h2 {
     background-color: rgb(68, 69, 86);
 }
 
-span.content {
+.content {
     color: rgb(255, 255, 255);
+    font-style: italic;
+}
+
+.sub-content {
+    color: rgb(255, 255, 255);
+    margin-left: 30px;
+    font-style: italic;
 }
 
 hr.separator {
@@ -66,11 +77,25 @@ hr.separator {
     border-style: none;
 }
 
+hr.sub-separator {
+    padding: 0%;
+    height: 3px;
+    border-style: none;
+}
+
 a.content:link {
     color: rgb(255, 255, 255);
 }
 
 a.content:visited {
+    color: rgb(255, 255, 255);
+}
+
+a.sub-content:link {
+    color: rgb(255, 255, 255);
+}
+
+a.sub-content:visited {
     color: rgb(255, 255, 255);
 }
 
@@ -85,6 +110,16 @@ a.content:visited {
     margin: auto;
     max-width: 600px;
     text-align: left;
+}
+
+img {
+    border-radius: 10px;
+    padding: 5px;
+    display: table;
+    margin: auto;
+    width: 100%;
+    max-width: 500px;
+    max-height: 500px; 
 }
 
 video {
