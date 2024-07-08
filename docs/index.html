@@ -81,7 +81,7 @@
                 <hr class="sub-separator" style="background-color: rgb(87, 88, 107)">
                 <p>Every Boid can be simply described as a point moving in a direction. Each Boid moves at a constant speed in the direction they are looking. To clarify: a Boid's direction is not a vector, but rather a rotation.</p>
                 <img src="images/img1.png" style="max-width: 300px;">
-                <p>Let's make a structure defining a Boid. Since we're only making 2-dimensional Boid, the position should be a 2D vector. Now, we could use degrees to represent the Boid's rotation, but that limits us in a big way: we won't be able to use trigonometric functions (because most languages don't support degrees). Trig functions use radians. Radians have a range of 0-2π, contrast to degrees which have a range of 0-360.</p>
+                <p>Let's make a structure defining a Boid. Since we're only making 2-dimensional Boids, each of their positions should be a 2D vector. Now, we could use degrees to represent the Boid's rotation, but that limits us in a big way: we won't be able to use trigonometric functions (because most languages don't support degrees). Trig functions use radians. Radians have a range of 0-2π, contrast to degrees which have a range of 0-360.</p>
                 <pre><code class="language-c">
 struct Boid
 {
