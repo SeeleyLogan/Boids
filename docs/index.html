@@ -30,15 +30,14 @@
         </span>
         <br>
         <div class="contents" id="content-container">
-            <span class="content">
-                <h2>Contents</h2>
-                <hr class="separator" style="background-color: rgb(255, 255, 255)">
-                <div class="content-links">
-                    <a href="#overview" class="content"><p class="bold">1.0 Overview</p></a>
-                    <a href="#how-i-did-it" class="content"><p class="bold">2.0 How I Did It</p></a>
-                    <a href="#getting-started" class="content"><p class="bold">3.0 Getting Started</p></a>
-                </div>
-            </span>
+            <h2 style="color: white">Contents</h2>
+            <hr class="separator" style="background-color: rgb(255, 255, 255)">
+            <div class="content-links">
+                <a href="#overview" class="content"><p class="bold">1.0 Overview</p></a>
+                <a href="#how-i-did-it" class="content"><p class="bold">2.0 How I Did It</p></a>
+                <a href="#getting-started" class="content"><p class="bold">3.0 Getting Started</p></a>
+                <a href="#the-boid-structure" class="sub-content">3.1 The Boid Structure</a>
+            </div>
         </div>
         <br>
         <div class="paragraph">
@@ -73,12 +72,16 @@
                 <p>For my OpenGL implementation, I used the <a href="https://github.com/Dav1dde/glad" target="_blank">Glad</a> and <a href="https://www.glfw.org" target="_blank">GLFW</a> libraries. For all my vector math I used <a href="https://github.com/recp/cglm" target="_blank">CGLM</a>, a really simple-to-use and optimized library.</p>
             </span>
             <br>
-            <span class="getting-started">
+            <span id="getting-started">
                 <h2>Getting Started</h2>
                 <hr class="separator" style="background-color: rgb(68, 69, 86)">
-
                 <p>By now you should have chosen what enviornment you'll be using. Hopefully it already comes with a vector library. But if it doesn't then you should install one before continuing.</p>
-                <p>We first need to define what properties a Boid will have. So let's make a structure! Each Boid needs to have at least two things: a position and rotation. The position should be a 2-dimensional vector, and the rotation should be a float.</p>
+                <br>
+                <span id="the-boid-structure"><h3>The Boid Structure</h3></span>
+                <hr class="sub-separator" style="background-color: rgb(87, 88, 107)">
+                <p>Every Boid can be simply described as a point moving in a direction. Each Boid moves at a constant speed in the direction they are looking. To clarify: a Boid's direction is not a vector, but rather a rotation.</p>
+                <img src="images/img1.png" style="max-width: 300px;">
+                <p>Let's make a structure defining a Boid. Since we're only making 2-dimensional Boid, the position should be a 2D vector. Now, we could use degrees to represent the Boid's rotation, but that limits us in a big way: we won't be able to use trigonometric functions (because most languages don't support degrees). Trig functions use radians. Radians have a range of 0-2π, contrast to degrees which have a range of 0-360.</p>
                 <pre><code class="language-c">
 struct Boid
 {
