@@ -36,7 +36,8 @@
                 <a href="#overview" class="content"><p class="bold">1.0 Overview</p></a>
                 <a href="#how-i-did-it" class="content"><p class="bold">2.0 How I Did It</p></a>
                 <a href="#getting-started" class="content"><p class="bold">3.0 Getting Started</p></a>
-                <a href="#the-boid-structure" class="sub-content">3.1 The Boid Structure</a>
+                <a href="#the-boid-structure" class="sub-content"><p>3.1 The Boid Structure</p></a>
+                <a href="#drawing-a-boid" class="sub-content"><p>3.1 Drawing a Boid</p></a>
             </div>
         </div>
         <br>
@@ -75,13 +76,16 @@
             <span id="getting-started">
                 <h2>Getting Started</h2>
                 <hr class="separator" style="background-color: rgb(68, 69, 86)">
-                <p>By now you should have chosen what enviornment you'll be using. Hopefully it already comes with a vector library. But if it doesn't then you should install one before continuing.</p>
+                <p>By now you should have chosen what enviornment you'll be using. Hopefully it already comes with a vector library. But if it doesn't then you should link one before continuing.</p>
                 <br>
                 <span id="the-boid-structure"><h3>The Boid Structure</h3></span>
                 <hr class="sub-separator" style="background-color: rgb(87, 88, 107)">
                 <p>Every Boid can be simply described as a point moving in a direction. Each Boid moves at a constant speed in the direction they are looking. To clarify: a Boid's direction is not a vector, but rather a rotation.</p>
+                
                 <img src="images/img1.png" style="max-width: 300px;">
-                <p>Let's make a structure defining a Boid. Since we're only making 2-dimensional Boids, each of their positions should be a 2D vector. Now, we could use degrees to represent the Boid's rotation, but that limits us in a big way: we won't be able to use trigonometric functions (because most languages don't support degrees). Trig functions use radians. Radians have a range of 0-2π, contrast to degrees which have a range of 0-360.</p>
+                <span class="media-footer"><b>Image 1:</b><i> Boid Visualization</i></span>
+
+                <p>Let's make a structure defining a Boid. Since we're only making 2-dimensional Boids, each of their positions should be a 2D vector. For the Boid's rotation we'll use a float.</p>
                 <pre><code class="language-c">
 struct Boid
 {
@@ -89,6 +93,11 @@ struct Boid
     float rotation;
 }
                 </code></pre>
+                <span class="media-footer"><b>Snippet 1:</b><i> Boid Structure</i></span>
+                <br>
+                <span id="drawing-a-boid"><h3>Drawing a Boid</h3></span>
+                <hr class="sub-separator" style="background-color: rgb(87, 88, 107)">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque repudiandae sed culpa inventore nisi totam vero odit quas in odio libero, deserunt quia vitae voluptatibus iste, quam iure maiores pariatur?</p>
             </span>
         </div>
     </div>
